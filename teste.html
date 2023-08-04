@@ -1,178 +1,3 @@
-from docx import Document
-from bs4 import BeautifulSoup
-from html2json.script import convert
-import json
-from docxtpl import DocxTemplate
-
-def is_html(text):
-    soup = BeautifulSoup(text, "html.parser")
-    return bool(soup.find())
-
-def check_styles():
-    docTeste = Document("template.docx")
-    styles = docTeste.styles
-
-    for style in styles:
-        print(style.name)
-
-def check_sections():
-    docTeste = Document("documento_final.docx")
-    sections = docTeste.sections
-
-    for section in sections:
-        print(section)
-
-def data_table(data):
-    table_data = data['values'][0]['values']
-
-    matrix = []
-
-    for row in table_data:
-        row_values = []
-        for cell in row['values']:
-            row_values.append(cell['values'])
-        matrix.append(row_values)
-
-    return matrix
-
-def render_values(paragraph, item, bold=False, italic=False, underline=False):
-    for value in item:
-        run = paragraph.add_run()
-        run.italic = italic
-        run.bold = bold
-        run.underline = underline
-        if isinstance(value, str):
-            run.add_text(value)
-        elif value["tag_name"] == "img":
-            run.add_picture('TCC Control.png')
-        elif value["tag_name"] == "strong":
-            run.bold = True
-            render_values(paragraph, value["values"], bold=run.bold, italic=run.italic, underline=run.underline)
-        elif value["tag_name"] == "em":
-            run.italic = True
-            render_values(paragraph, value["values"], bold=run.bold, italic=run.italic, underline=run.underline)
-        elif value["tag_name"] == "span":
-            run.underline = True
-            render_values(paragraph, value["values"], bold=run.bold, italic=run.italic, underline=run.underline)
-
-def get_paragraph(key, p):
-
-    if key["tag_name"] == "h1":
-        paragraph = p.add_heading(level=1)
-    elif key["tag_name"] == "h2":
-        paragraph = p.add_heading(level=2)
-    elif key["tag_name"] == "h3":
-        paragraph = p.add_heading(level=3)
-    elif key["tag_name"] == "p":
-        paragraph = p.add_paragraph()
-    
-    render_values(paragraph, key["values"])
-
-def get_html_context(doc, items):
-    subDocument = doc.new_subdoc()
-
-    for key in items["keys"]:
-        if key["tag_name"] == "ul":
-            for li in key["values"]:
-                p = subDocument.add_paragraph("Teste", style="List Paragraph")
-                render_values(p, li["values"])
-        elif key["tag_name"] == "table":
-            data = data_table(key)
-            table = subDocument.add_table(rows=1, cols=1, style="Table Grid")
-            hdr_cells = table.rows[0].cells
-            for row_index, row in enumerate(data):
-                if row_index == 0:
-                    for index, hdr_text in enumerate(row):
-                        if type(hdr_text[0]) is str:
-                            p = hdr_cells[index].add_paragraph()
-                            p.style = 'paragrafo'
-                            render_values(p, hdr_text)
-                        else:
-                            for item in hdr_text:
-                                get_paragraph(item, hdr_cells[index])
-                else:
-                    row_cells = table.add_row().cells
-                    for index, text in enumerate(row):
-                        if type(text[0]) is str:
-                            p = row_cells[index].add_paragraph()
-                            p.style = 'paragrafo'
-                            render_values(p, text)
-                        else:
-                            for item in text:
-                                get_paragraph(item, row_cells[index])
-        else:
-            get_paragraph(key, subDocument)
-
-    return subDocument
-
-def json2docx(data):
-    doc = DocxTemplate("template.docx")
-    context = {}
-    check_styles()
-
-    for field in data["fields"]:
-        key = field["key"]
-        value = field["value"]
-
-        if type(value) is list:
-            print('list')
-        elif is_html(value):
-            json_string = convert(value)
-            items = json.loads(json_string)
-            context.update({key: get_html_context(doc, items)})
-        else:
-            context[key] = value
-
-    doc.render(context)
-
-    doc.save("documento_final.docx")
-
-    check_sections()
-
-if __name__ == '__main__':
-    data = {
-        "fields": [
-            {
-                "key": "titulo",
-                "value": "TCC CONTROL: UM SISTEMA PARA GERENCIAMENTO DE TCC",
-                "type": "string"
-            },
-            {
-                "key": "coordenador",
-                "value": "Lucas",
-                "type": "string"
-            },
-            {
-                "key": "aluno",
-                "value": "Lucas",
-                "type": "string"
-            },
-            {
-                "key": "orientador",
-                "value": "Felipe Pereira Perez",
-                "type": "string"
-            },
-            {
-                "key": "bibliografia",
-                "value": [
-                    "Bibliografia 1",
-                    "Bibliografia 2",
-                    "Bibliografia 3"
-                ],
-                "type": "ref"
-            },
-            {
-                "key": "version",
-                "value": [
-                    {"created_at": "24/03/2023", "version": "1.0", "description": "blablabla", "author": "Willian"},
-                    {"created_at": "25/03/2023", "version": "1.1", "description": "blablabla", "author": "Willian"},
-                    {"created_at": "26/03/2023", "version": "1.2", "description": "blablabla", "author": "Willian"},
-                ],
-                "type": "list_version"
-            },
-            {
-                "key": "content",
-                "value": """
 <h1>ESCOPO DO SISTEMA</h1>
 <h2>Dados Iniciais</h2>
 <p><strong>Nome do software: </strong>TCC Control Um sistema de gerenciamento de TCC</p>
@@ -509,7 +334,7 @@ if __name__ == '__main__':
 </tr>
 <tr>
 <td style="width: 97.8656%;">
-<p>Descri&ccedil;&atilde;o: Essecasodeusopermitevisualizar as notifica&ccedil;&otilde;es</p>
+<p>Descri&ccedil;&atilde;o: Esse caso deusopermitevisualizar as notifica&ccedil;&otilde;es</p>
 <p>Prioridade: Desej&aacute;vel</p>
 <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;riodever&aacute;estarlogado</p>
 <p>Entrada: n&atilde;otem</p>
@@ -519,7 +344,7 @@ if __name__ == '__main__':
 </tbody>
 </table>
 <p>&nbsp;</p>
-<h3>GerenciamentodeTCC</h3>
+<h3>Gerenciamentode TCC</h3>
 <p>&nbsp;</p>
 <table style="border-collapse: collapse; width: 100.013%;" border="1">
 <tbody>
@@ -992,9 +817,3 @@ if __name__ == '__main__':
     </tr>
     </tbody>
     </table>
-"""
-            }
-        ]
-    }
-
-    json2docx(data)
