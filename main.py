@@ -3,6 +3,22 @@ from bs4 import BeautifulSoup
 from html2json.script import convert
 import json
 from docxtpl import DocxTemplate
+from docx.shared import Inches
+
+def is_title(paragraph):
+    print(paragraph.style)
+    if paragraph.style.name.startswith('Heading'):  
+        return True
+    return False
+
+def list_titles():
+    doc = Document("documento_final.docx")
+    titles = []
+    for paragraph in doc.paragraphs:
+        if is_title(paragraph):
+            titles.append(paragraph.text)
+            
+    print(titles)
 
 def is_html(text):
     soup = BeautifulSoup(text, "html.parser")
@@ -44,7 +60,10 @@ def render_values(paragraph, item, bold=False, italic=False, underline=False):
         if isinstance(value, str):
             run.add_text(value)
         elif value["tag_name"] == "img":
-            run.add_picture('TCC Control.png')
+            width_in_pixels = 300 
+            height_in_pixels = 200
+            run.add_picture('TCC Control.png', width=Inches(width_in_pixels * 0.0138889), height=Inches(height_in_pixels * 0.0138889))
+            paragraph.style = 'Normal'
         elif value["tag_name"] == "strong":
             run.bold = True
             render_values(paragraph, value["values"], bold=run.bold, italic=run.italic, underline=run.underline)
@@ -65,8 +84,11 @@ def get_paragraph(key, p):
         paragraph = p.add_heading(level=3)
     elif key["tag_name"] == "p":
         paragraph = p.add_paragraph()
+        paragraph.style = 'paragrafo'
     
     render_values(paragraph, key["values"])
+
+    return paragraph
 
 def get_html_context(doc, items):
     subDocument = doc.new_subdoc()
@@ -84,22 +106,34 @@ def get_html_context(doc, items):
                 if row_index == 0:
                     for index, hdr_text in enumerate(row):
                         if type(hdr_text[0]) is str:
-                            p = hdr_cells[index].add_paragraph()
-                            p.style = 'paragrafo'
+                            p = hdr_cells[index].paragraphs[0]
+                            p.style = 'Normal'
                             render_values(p, hdr_text)
                         else:
-                            for item in hdr_text:
-                                get_paragraph(item, hdr_cells[index])
+                            for index_item, item in enumerate(hdr_text):
+                                if index_item == 0:
+                                    p = hdr_cells[index].paragraphs[0]
+                                    p.style = 'Normal'
+                                    render_values(p, item["values"])
+                                else:
+                                    paragraph = get_paragraph(item, hdr_cells[index])
+                                    paragraph.style = 'Normal'
                 else:
                     row_cells = table.add_row().cells
                     for index, text in enumerate(row):
                         if type(text[0]) is str:
-                            p = row_cells[index].add_paragraph()
-                            p.style = 'paragrafo'
+                            p = row_cells[index].paragraphs[0]
+                            p.style = 'Normal'
                             render_values(p, text)
                         else:
-                            for item in text:
-                                get_paragraph(item, row_cells[index])
+                            for index_item, item in enumerate(text):
+                                if index_item == 0:
+                                    p = row_cells[index].paragraphs[0]
+                                    p.style = 'Normal'
+                                    render_values(p, item["values"])
+                                else:
+                                    paragraph = get_paragraph(item, row_cells[index])
+                                    paragraph.style = 'Normal'
         else:
             get_paragraph(key, subDocument)
 
@@ -107,8 +141,8 @@ def get_html_context(doc, items):
 
 def json2docx(data):
     doc = DocxTemplate("template.docx")
+
     context = {}
-    check_styles()
 
     for field in data["fields"]:
         key = field["key"]
@@ -127,7 +161,7 @@ def json2docx(data):
 
     doc.save("documento_final.docx")
 
-    check_sections()
+    list_titles() 
 
 if __name__ == '__main__':
     data = {
@@ -232,7 +266,7 @@ if __name__ == '__main__':
 <ul>
 <li>Como o sistema deve manter o hist&oacute;rico de altera&ccedil;&atilde;o dos arquivos, considerando que a data de uma etapa j&aacute; tenha sido ultrapassada o orientando poder&aacute; editar o arquivo anexado ou ele ter&aacute; que submeter um novo arquivo?</li>
 </ul>
-<p>R: O sistema ir&aacute; trabalhar com caixas de textos ao inv&eacute;s de submeter arquivos docx ou pdf e ao final do projeto toda formata&ccedil;&atilde;o ABNT ser&aacute; feita de forma autom&aacute;tica. Durante o desenvolvimento da etapa o aluno poder&aacute; alterar o arquivo normalmente, entretanto ap&oacute;s a conclus&atilde;o do arquivo, caso ele queira fazer uma altera&ccedil;&atilde;o ter&aacute; que solicitar ao professor da disciplina e caso seja feito, o hist&oacute;rico ser&aacute; armazenado.</p>
+<p>R: O sistema ir&aacute; trabalhar com caixas de textos ao inv&eacute;s de submeter arquivos docx ou pdf e ao final do projeto toda formata&ccedil;&atilde;o ABNT ser&aacute; feita de forma autom&aacute;tica. Durante o desenvolvimento da etapa o aluno poder&aacute; alterar o arquivo Normalmente, entretanto ap&oacute;s a conclus&atilde;o do arquivo, caso ele queira fazer uma altera&ccedil;&atilde;o ter&aacute; que solicitar ao professor da disciplina e caso seja feito, o hist&oacute;rico ser&aacute; armazenado.</p>
 <ul>
 <li>Como o sistema deve reagir se o aluno anexar um trabalho corrigido pelo orientador, mas n&atilde;o comparecer &agrave; apresenta&ccedil;&atilde;o?</li>
 </ul>
@@ -992,6 +1026,7 @@ if __name__ == '__main__':
     </tr>
     </tbody>
     </table>
+    <p><img src="TCC Control.png"></img></p>
 """
             }
         ]
