@@ -11,12 +11,14 @@ styles = {
     "h2": "Heading 2",
     "h3": "Heading 3",
     "h4": "Heading 4",
-    "h5": "Heading 5", 
+    "h5": "Heading 5",
 }
+
 
 def is_html(text):
     soup = BeautifulSoup(text, "html.parser")
     return bool(soup.find())
+
 
 def check_styles():
     docTeste = Document("template.docx")
@@ -25,12 +27,14 @@ def check_styles():
     for style in styles:
         print(style.name)
 
+
 def check_sections():
     docTeste = Document("documento_final.docx")
     sections = docTeste.sections
 
     for section in sections:
         print(section)
+
 
 def data_table(data):
     table_data = data['values'][0]['values']
@@ -45,84 +49,69 @@ def data_table(data):
 
     return matrix
 
+
 def render_values(paragraph, item, bold=False, italic=False, underline=False):
     for value in item:
         run = paragraph.add_run()
-        if paragraph.style.name == "Normal" or paragraph.style.name == "paragrafo":
+        if not paragraph.style.name.startswith("Heading"):
             run.italic = italic
             run.bold = bold
             run.underline = underline
         if isinstance(value, str):
             run.add_text(value)
         elif value["tag_name"] == "img":
-            width_in_pixels = 300 
+            width_in_pixels = 300
             height_in_pixels = 200
-            run.add_picture('TCC Control.png', width=Inches(width_in_pixels * 0.0138889), height=Inches(height_in_pixels * 0.0138889))
+            run.add_picture('TCC Control.png', width=Inches(
+                width_in_pixels * 0.0138889), height=Inches(height_in_pixels * 0.0138889))
             paragraph.style = 'Normal'
         elif value["tag_name"] == "strong":
             run.bold = True
-            render_values(paragraph, value["values"], bold=run.bold, italic=run.italic, underline=run.underline)
+            render_values(paragraph, value["values"], bold=run.bold,
+                          italic=run.italic, underline=run.underline)
         elif value["tag_name"] == "em":
             run.italic = True
-            render_values(paragraph, value["values"], bold=run.bold, italic=run.italic, underline=run.underline)
+            render_values(paragraph, value["values"], bold=run.bold,
+                          italic=run.italic, underline=run.underline)
         elif value["tag_name"] == "span":
             run.underline = True
-            render_values(paragraph, value["values"], bold=run.bold, italic=run.italic, underline=run.underline)
+            render_values(paragraph, value["values"], bold=run.bold,
+                          italic=run.italic, underline=run.underline)
+
 
 def process_list(subDocument, li):
     for item in li["values"]:
         p = subDocument.add_paragraph("Teste", style="List Paragraph")
         render_values(p, item["values"])
 
+
 def process_table(subDocument, data):
-    table = subDocument.add_table(rows=1, cols=1, style="Table Grid")
-    hdr = table.rows[0]
+    table = subDocument.add_table(
+        rows=len(data), cols=len(data[0]), style="Table Grid")
 
     for row_index, row in enumerate(data):
-        if row_index == 0:
-            for index, cell_data in enumerate(row):
-                if index == 0:
-                    p = hdr.cells[0].paragraphs[0]
-                else:
-                    cell = hdr.add_cell()
-                    p = cell.add_paragraph()
-                p.style = 'Normal'
-                
+        row_cells = table.rows[row_index].cells
+        for index, cell_data in enumerate(row):
+            p = row_cells[index].paragraphs[0]
+            p.style = 'Normal'
 
-                if isinstance(cell_data[index], str):
-                    render_values(p, cell_data)
-                else:
-                    for index_item, item in enumerate(cell_data):
-                        if index_item == 0:
-                            render_values(p, item["values"])
-                        else:
-                            paragraph = hdr[index].add_paragraph()
-                            paragraph.style = 'Normal'
-                            render_values(paragraph, item["values"])
-        else:
-            row_cells = table.add_row()
-            for index, cell_data in enumerate(row):
-                if index == 0:
-                    p = row_cells[0].paragraphs[0]
-                else:
-                    p = row_cells.add_cell().add_paragraph()
-                p.style = 'Normal'
+            if isinstance(cell_data[0], str):
+                render_values(p, cell_data)
+            else:
+                for index_item, item in enumerate(cell_data):
+                    if index_item == 0:
+                        render_values(p, item["values"])
+                    else:
+                        paragraph = row_cells[index].add_paragraph()
+                        paragraph.style = 'Normal'
+                        render_values(paragraph, item["values"])
 
-                if isinstance(cell_data[index], str):
-                    render_values(p, cell_data)
-                else:
-                    for index_item, item in enumerate(cell_data):
-                        if index_item == 0:
-                            render_values(p, item["values"])
-                        else:
-                            paragraph = row_cells[index].add_paragraph()
-                            paragraph.style = 'Normal'
-                            render_values(paragraph, item["values"])
 
 def process_default(subDocument, tag_name, values):
     paragraph = subDocument.add_paragraph()
     paragraph.style = styles[tag_name]
     render_values(paragraph, values)
+
 
 def process_items(doc, items):
     subDocument = doc.new_subdoc()
@@ -137,7 +126,6 @@ def process_items(doc, items):
             process_default(subDocument, key["tag_name"], key["values"])
 
     return subDocument
-
 
 
 def json2docx(data):
@@ -161,6 +149,7 @@ def json2docx(data):
     doc.render(context)
 
     doc.save("documento_final.docx")
+
 
 if __name__ == '__main__':
     data = {
@@ -197,16 +186,19 @@ if __name__ == '__main__':
             {
                 "key": "version",
                 "value": [
-                    {"created_at": "24/03/2023", "version": "1.0", "description": "blablabla", "author": "Willian"},
-                    {"created_at": "25/03/2023", "version": "1.1", "description": "blablabla", "author": "Willian"},
-                    {"created_at": "26/03/2023", "version": "1.2", "description": "blablabla", "author": "Willian"},
+                    {"created_at": "24/03/2023", "version": "1.0",
+                        "description": "blablabla", "author": "Willian"},
+                    {"created_at": "25/03/2023", "version": "1.1",
+                        "description": "blablabla", "author": "Willian"},
+                    {"created_at": "26/03/2023", "version": "1.2",
+                        "description": "blablabla", "author": "Willian"},
                 ],
                 "type": "list_version"
             },
             {
                 "key": "content",
                 "value": """
-                <table style="border-collapse: collapse; width: 100.028%;" border="1">
+                                <table style="border-collapse: collapse; width: 100.028%;" border="1">
 <tbody>
 <tr>
 <td style="width: 18.0499%;">12</td>
