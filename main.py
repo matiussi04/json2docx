@@ -5,20 +5,14 @@ import json
 from docxtpl import DocxTemplate
 from docx.shared import Inches
 
-def is_title(paragraph):
-    print(paragraph.style)
-    if paragraph.style.name.startswith('Heading'):  
-        return True
-    return False
-
-def list_titles():
-    doc = Document("documento_final.docx")
-    titles = []
-    for paragraph in doc.paragraphs:
-        if is_title(paragraph):
-            titles.append(paragraph.text)
-            
-    print(titles)
+styles = {
+    "p": "paragrafo",
+    "h1": "Heading 1",
+    "h2": "Heading 2",
+    "h3": "Heading 3",
+    "h4": "Heading 4",
+    "h5": "Heading 5", 
+}
 
 def is_html(text):
     soup = BeautifulSoup(text, "html.parser")
@@ -54,9 +48,10 @@ def data_table(data):
 def render_values(paragraph, item, bold=False, italic=False, underline=False):
     for value in item:
         run = paragraph.add_run()
-        run.italic = italic
-        run.bold = bold
-        run.underline = underline
+        if paragraph.style.name == "Normal" or paragraph.style.name == "paragrafo":
+            run.italic = italic
+            run.bold = bold
+            run.underline = underline
         if isinstance(value, str):
             run.add_text(value)
         elif value["tag_name"] == "img":
@@ -74,70 +69,76 @@ def render_values(paragraph, item, bold=False, italic=False, underline=False):
             run.underline = True
             render_values(paragraph, value["values"], bold=run.bold, italic=run.italic, underline=run.underline)
 
-def get_paragraph(key, p):
+def process_list(subDocument, li):
+    for item in li["values"]:
+        p = subDocument.add_paragraph("Teste", style="List Paragraph")
+        render_values(p, item["values"])
 
-    if key["tag_name"] == "h1":
-        paragraph = p.add_heading(level=1)
-    elif key["tag_name"] == "h2":
-        paragraph = p.add_heading(level=2)
-    elif key["tag_name"] == "h3":
-        paragraph = p.add_heading(level=3)
-    elif key["tag_name"] == "p":
-        paragraph = p.add_paragraph()
-        paragraph.style = 'paragrafo'
-    
-    render_values(paragraph, key["values"])
+def process_table(subDocument, data):
+    table = subDocument.add_table(rows=1, cols=1, style="Table Grid")
+    hdr = table.rows[0]
 
-    return paragraph
+    for row_index, row in enumerate(data):
+        if row_index == 0:
+            for index, cell_data in enumerate(row):
+                if index == 0:
+                    p = hdr.cells[0].paragraphs[0]
+                else:
+                    cell = hdr.add_cell()
+                    p = cell.add_paragraph()
+                p.style = 'Normal'
+                
 
-def get_html_context(doc, items):
+                if isinstance(cell_data[index], str):
+                    render_values(p, cell_data)
+                else:
+                    for index_item, item in enumerate(cell_data):
+                        if index_item == 0:
+                            render_values(p, item["values"])
+                        else:
+                            paragraph = hdr[index].add_paragraph()
+                            paragraph.style = 'Normal'
+                            render_values(paragraph, item["values"])
+        else:
+            row_cells = table.add_row()
+            for index, cell_data in enumerate(row):
+                if index == 0:
+                    p = row_cells[0].paragraphs[0]
+                else:
+                    p = row_cells.add_cell().add_paragraph()
+                p.style = 'Normal'
+
+                if isinstance(cell_data[index], str):
+                    render_values(p, cell_data)
+                else:
+                    for index_item, item in enumerate(cell_data):
+                        if index_item == 0:
+                            render_values(p, item["values"])
+                        else:
+                            paragraph = row_cells[index].add_paragraph()
+                            paragraph.style = 'Normal'
+                            render_values(paragraph, item["values"])
+
+def process_default(subDocument, tag_name, values):
+    paragraph = subDocument.add_paragraph()
+    paragraph.style = styles[tag_name]
+    render_values(paragraph, values)
+
+def process_items(doc, items):
     subDocument = doc.new_subdoc()
 
     for key in items["keys"]:
         if key["tag_name"] == "ul":
-            for li in key["values"]:
-                p = subDocument.add_paragraph("Teste", style="List Paragraph")
-                render_values(p, li["values"])
+            process_list(subDocument, key)
         elif key["tag_name"] == "table":
             data = data_table(key)
-            table = subDocument.add_table(rows=1, cols=1, style="Table Grid")
-            hdr_cells = table.rows[0].cells
-            for row_index, row in enumerate(data):
-                if row_index == 0:
-                    for index, hdr_text in enumerate(row):
-                        if type(hdr_text[0]) is str:
-                            p = hdr_cells[index].paragraphs[0]
-                            p.style = 'Normal'
-                            render_values(p, hdr_text)
-                        else:
-                            for index_item, item in enumerate(hdr_text):
-                                if index_item == 0:
-                                    p = hdr_cells[index].paragraphs[0]
-                                    p.style = 'Normal'
-                                    render_values(p, item["values"])
-                                else:
-                                    paragraph = get_paragraph(item, hdr_cells[index])
-                                    paragraph.style = 'Normal'
-                else:
-                    row_cells = table.add_row().cells
-                    for index, text in enumerate(row):
-                        if type(text[0]) is str:
-                            p = row_cells[index].paragraphs[0]
-                            p.style = 'Normal'
-                            render_values(p, text)
-                        else:
-                            for index_item, item in enumerate(text):
-                                if index_item == 0:
-                                    p = row_cells[index].paragraphs[0]
-                                    p.style = 'Normal'
-                                    render_values(p, item["values"])
-                                else:
-                                    paragraph = get_paragraph(item, row_cells[index])
-                                    paragraph.style = 'Normal'
+            process_table(subDocument, data)
         else:
-            get_paragraph(key, subDocument)
+            process_default(subDocument, key["tag_name"], key["values"])
 
     return subDocument
+
+
 
 def json2docx(data):
     doc = DocxTemplate("template.docx")
@@ -153,15 +154,13 @@ def json2docx(data):
         elif is_html(value):
             json_string = convert(value)
             items = json.loads(json_string)
-            context.update({key: get_html_context(doc, items)})
+            context.update({key: process_items(doc, items)})
         else:
             context[key] = value
 
     doc.render(context)
 
     doc.save("documento_final.docx")
-
-    list_titles() 
 
 if __name__ == '__main__':
     data = {
@@ -207,6 +206,31 @@ if __name__ == '__main__':
             {
                 "key": "content",
                 "value": """
+                <table style="border-collapse: collapse; width: 100.028%;" border="1">
+<tbody>
+<tr>
+<td style="width: 18.0499%;">12</td>
+<td style="width: 18.0499%;">3</td>
+<td style="width: 18.0499%;">4</td>
+<td style="width: 18.0499%;">5</td>
+<td style="width: 18.0545%;">6</td>
+</tr>
+<tr>
+<td style="width: 18.0499%;">DFDFDF</td>
+<td style="width: 18.0499%;">4</td>
+<td style="width: 18.0499%;">65</td>
+<td style="width: 18.0499%;">65</td>
+<td style="width: 18.0545%;">4</td>
+</tr>
+<tr>
+<td style="width: 18.0499%;">54</td>
+<td style="width: 18.0499%;">4</td>
+<td style="width: 18.0499%;">54</td>
+<td style="width: 18.0499%;">5</td>
+<td style="width: 18.0545%;">45</td>
+</tr>
+</tbody>
+</table>
 <h1>ESCOPO DO SISTEMA</h1>
 <h2>Dados Iniciais</h2>
 <p><strong>Nome do software: </strong>TCC Control Um sistema de gerenciamento de TCC</p>
