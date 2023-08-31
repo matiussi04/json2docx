@@ -21,16 +21,16 @@ def is_html(text):
 
 
 def check_styles():
-    docTeste = Document("template.docx")
-    styles = docTeste.styles
+    doc_teste = Document("template.docx")
+    styles_in_document = doc_teste.styles
 
-    for style in styles:
+    for style in styles_in_document:
         print(style.name)
 
 
 def check_sections():
-    docTeste = Document("documento_final.docx")
-    sections = docTeste.sections
+    doc_teste = Document("documento_final.docx")
+    sections = doc_teste.sections
 
     for section in sections:
         print(section)
