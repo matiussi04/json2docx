@@ -4,6 +4,7 @@ from html2json.script import convert
 import json
 from docxtpl import DocxTemplate
 from docx.shared import Inches
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 styles = {
     "p": "paragrafo",
@@ -12,6 +13,19 @@ styles = {
     "h3": "Heading 3",
     "h4": "Heading 4",
     "h5": "Heading 5",
+}
+
+align = {
+    "right": WD_ALIGN_PARAGRAPH.RIGHT,
+    "left": WD_ALIGN_PARAGRAPH.LEFT,
+    "center": WD_ALIGN_PARAGRAPH.CENTER,
+    "justify": WD_ALIGN_PARAGRAPH.JUSTIFY
+}
+
+OPTIONS = {
+    "bold": False,
+    "italic": False,
+    "underline": False,
 }
 
 
@@ -50,33 +64,51 @@ def data_table(data):
     return matrix
 
 
-def render_values(paragraph, item, bold=False, italic=False, underline=False):
+def render_values(paragraph, item, options=OPTIONS):
     for value in item:
         run = paragraph.add_run()
         if not paragraph.style.name.startswith("Heading"):
-            run.italic = italic
-            run.bold = bold
-            run.underline = underline
+            run.italic = options["italic"]
+            run.bold = options["bold"]
+            run.underline = options["underline"]
         if isinstance(value, str):
             run.add_text(value)
         elif value["tag_name"] == "img":
-            width_in_pixels = 300
-            height_in_pixels = 200
-            run.add_picture('TCC Control.png', width=Inches(
-                width_in_pixels * 0.0138889), height=Inches(height_in_pixels * 0.0138889))
+            width = value["attributes"].get("width", "")
+            height = value["attributes"].get("height", "")
+            source = value["attributes"]["src"]
+            if (width == ""):
+                run.add_picture(source)
+            else:
+                width_in_pixels = float(width)
+                height_in_pixels = float(height)
+                run.add_picture(source, width=Inches(
+                    width_in_pixels * 0.0138889), height=Inches(height_in_pixels * 0.0138889))
             paragraph.style = 'Normal'
         elif value["tag_name"] == "strong":
             run.bold = True
-            render_values(paragraph, value["values"], bold=run.bold,
-                          italic=run.italic, underline=run.underline)
+            new_options = {
+                "bold": run.bold,
+                "italic": run.italic,
+                "underline": run.underline,
+            }
+            render_values(paragraph, value["values"], new_options)
         elif value["tag_name"] == "em":
             run.italic = True
-            render_values(paragraph, value["values"], bold=run.bold,
-                          italic=run.italic, underline=run.underline)
+            new_options = {
+                "bold": run.bold,
+                "italic": run.italic,
+                "underline": run.underline,
+            }
+            render_values(paragraph, value["values"], new_options)
         elif value["tag_name"] == "span":
             run.underline = True
-            render_values(paragraph, value["values"], bold=run.bold,
-                          italic=run.italic, underline=run.underline)
+            new_options = {
+                "bold": run.bold,
+                "italic": run.italic,
+                "underline": run.underline,
+            }
+            render_values(paragraph, value["values"], new_options)
 
 
 def process_list(subDocument, li):
@@ -1042,7 +1074,7 @@ if __name__ == '__main__':
     </tr>
     </tbody>
     </table>
-    <p><img src="TCC Control.png"></img></p>
+    <p><img src="TCC Control.png" width="300" height="200"></img></p>
 """
             }
         ]
