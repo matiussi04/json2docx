@@ -1054,6 +1054,8 @@ if __name__ == '__main__':
 </tbody>
 </table>
 <p>&nbsp;</p>
+<h1>Teste de citação</h1>
+<blockquote style="font-size: 13px; text-align: justify; margin-left: 151px; font-weight: normal;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</blockquote>
 <h1 style="font-size: 16px; text-transform: uppercase; font-weight: bold; padding-left: 0px; text-align: left;">referencias</h1>
 <div style="font-size: 16px; text-transform: none; font-weight: normal; padding-left: 0px; text-align: left;">MAGALH&Atilde;ES, Gladys Ferraz. TCC pode abrir portas no mercado de trabalho.&nbsp;InfoMoney, [S.l.], 26 abr. 2010. Dispon&iacute;vel em:&nbsp;&lt;https://www.infomoney.com.br/carreira/tcc-pode-abrir-portas-no-mercado-de-trabalho&gt;.&nbsp;Acesso em: 13 mar. 2023.</div>
 <p></p>
