@@ -112,12 +112,12 @@
 <p>R: O sistema ir&aacute; controlar todas etapas e caso ele queira editar uma etapa ter&aacute; que solicitar ao professor da disciplina. Caso haja altera&ccedil;&otilde;es, o sistema ir&aacute; manter o hist&oacute;rico.</p>
 <h1>REQUISITOS DO SISTEMA</h1>
 <p>Neste cap&iacute;tulo, ser&atilde;o apresentados os aspectos t&eacute;cnicos do projeto Website a ser desenvolvido.</p>
-<h2>MetodologiaDeLevantamentoDeRequisitos</h2>
+<h2>Metodologia De Levantamento De Requisitos</h2>
 <p>O projeto ser&aacute; desenvolvido em junho de 2023, ap&oacute;s a coleta de requisitos, defini&ccedil;&atilde;o dos modelos de caso de uso e DER, organiza&ccedil;&atilde;o do cronograma e prototipa&ccedil;&atilde;o das interfaces. O trabalho ser&aacute; divido em duas etapas:</p>
 <p>A primeira etapa &eacute; denominada de Levantamento de Requisitos, onde os analistas levantar&atilde;o os requisitos do sistema, atrav&eacute;s de entrevistas e observa&ccedil;&otilde;es no recinto. Ap&oacute;s a coleta de dados, os analistas ir&atilde;o elaborar uma vers&atilde;o preliminar dos requisitos do sistema (que ser&atilde;o descritos no cap&iacute;tulo 2 desse documento), que ser&aacute; submetido &agrave; valida&ccedil;&atilde;o por parte dos stakeholders.</p>
 <h2>Requisitos</h2>
 <p>O sistema dever&aacute; prover os seguintes requisitos:</p>
-<h3>RequisitosFuncionais</h3>
+<h3>Requisitos Funcionais</h3>
 <ul>
 <li>Cria&ccedil;&atilde;o de cronograma: O sistema deve permitir ao professor da disciplina a cria&ccedil;&atilde;o de um cronograma com as atividades e prazos estabelecidos para o projeto atrav&eacute;s de etapas.</li>
 <li>Cria&ccedil;&atilde;o de proposta de TCC: O sistema deve permitir que o orientando crie uma proposta de TCC, adicionando informa&ccedil;&otilde;es sobre o tema e seus objetivos, al&eacute;m de solicitar a orienta&ccedil;&atilde;o de um orientador.</li>
@@ -131,7 +131,7 @@
 <li>Notifica&ccedil;&atilde;o: O sistema deve enviar notifica&ccedil;&otilde;es quando reuni&otilde;es forem agendadas, aceitas ou recusadas, al&eacute;m de disparar notifica&ccedil;&otilde;es quando avalia&ccedil;&otilde;es por coment&aacute;rios forem realizadas e quando o aluno submeter o trabalho na aplica&ccedil;&atilde;o. Quando a data de entrega ou apresenta&ccedil;&atilde;o estiver pr&oacute;xima, o sistema automaticamente ir&aacute; disparar notifica&ccedil;&otilde;es para orientandos em caso de trabalho n&atilde;o atribu&iacute;do e para orientadores em caso de trabalhos n&atilde;o avaliados e para alertar quando for a data de uma apresenta&ccedil;&atilde;o.</li>
 <li>Gerenciamento de usu&aacute;rios: O sistema dever&aacute; realizar o cadastro de alunos, professores da disciplina e orientadores onde dever&aacute; constar suas informa&ccedil;&otilde;es, como nome completo, endere&ccedil;o de e-mail, registro de matr&iacute;cula (RGM), curso e o devido cargo que varia entre orientando, orientador e professor da disciplina.</li>
 </ul>
-<h3>RequisitosN&atilde;oFuncionais</h3>
+<h3>Requisitos N&atilde;o Funcionais</h3>
 <ul>
 <li>Seguran&ccedil;a: O sistema deve garantir a seguran&ccedil;a das informa&ccedil;&otilde;es do projeto, impedindo o acesso n&atilde;o autorizado aos dados.</li>
 <li>Usabilidade: O sistema deve ser f&aacute;cil de usar e ter uma interface intuitiva para que o usu&aacute;rio possa realizar suas tarefas de forma eficiente.</li>
@@ -145,7 +145,7 @@
 <p>Com base na defini&ccedil;&atilde;o dos requisitos e da modelagem do sistema, ser&aacute; iniciado o processo de desenvolvimento, utilizando um ambiente de containers com aux&iacute;lio da ferramenta Docker e Docker Compose para criar uma inst&acirc;ncia da aplica&ccedil;&atilde;o em Python utilizando o framework Django. O sistema ter&aacute; uma arquitetura h&iacute;brida, com endpoints que entregam p&aacute;ginas HTML est&aacute;ticas ao client-side e outros endpoints que representam os estados do sistema, por meio de uma API REST. Para o front-end, ser&atilde;o utilizadas as tecnologias HTML, JS e CSS.</p>
 <p>Por meio do ambiente de containers, qualquer usu&aacute;rio com acesso ao c&oacute;digo-fonte poder&aacute; subir uma inst&acirc;ncia local da aplica&ccedil;&atilde;o na m&aacute;quina e realizar altera&ccedil;&otilde;es ou incrementos atrav&eacute;s de um editor de texto, como o VsCode. Para gerenciar o c&oacute;digo-fonte, ser&aacute; utilizado o Git hospedado em um reposit&oacute;rio privado do GitLab, que oferece funcionalidades de code review e pipelines de CI/CD. As esteiras ser&atilde;o utilizadas para garantir a qualidade do c&oacute;digo, 15 com linters e ferramentas de testes (testes unit&aacute;rios e testes de integra&ccedil;&atilde;o), e para realizar o deploy.</p>
 <p>As etapas de desenvolvimento ser&atilde;o gerenciadas no aplicativo Jira, com a cria&ccedil;&atilde;o de um backlog contendo as tarefas necess&aacute;rias para o desenvolvimento. Essas atividades ser&atilde;o divididas de forma semelhante ao modelo de est&oacute;rias, para que a cada implementa&ccedil;&atilde;o seja feita uma revis&atilde;o com o consultor, garantindo que o sistema esteja seguindo os requisitos coletados anteriormente e assegurando a qualidade. Antes de iniciar o desenvolvimento, ser&atilde;o criados prot&oacute;tipos de interface para valida&ccedil;&atilde;o, por meio da ferramenta Balsamiq.</p>
-<h3>CasosDeUsosGerais</h3>
+<h3>Casos De Usos Gerais</h3>
 <p>&nbsp;</p>
 <table style="border-collapse: collapse; width: 100.013%;" border="1">
 <tbody>
@@ -158,7 +158,7 @@
 <p>Prioridade: Essencial</p>
 <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio deve estar cadastrado no sistema</p>
 <p>Entrada: Recebe como entrada o E-mail e a senha</p>
-<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Se tanto o e-mail como a senhaestiveremcorretos o usu&aacute;riopoder&aacute;teracessoaosistema</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Se tanto o e-mail como a senha estiverem corretos o usu&aacute;rio poder&aacute; ter acesso ao sistema</p>
 </td>
 </tr>
 </tbody>
@@ -171,11 +171,11 @@
 </tr>
 <tr>
 <td style="width: 97.8656%;">
-<p>Descri&ccedil;&atilde;o: Essecasodeusopermiteaousu&aacute;riochecarsuasnotifica&ccedil;&otilde;es</p>
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite ao usu&aacute;rio checar suas notifica&ccedil;&otilde;es</p>
 <p>Prioridade: Desej&aacute;vel</p>
-<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;riodeveestarlogado no sistema</p>
-<p>Entrada: n&atilde;otem</p>
-<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: As notifica&ccedil;&otilde;ess&atilde;omarcadascomolidas</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio deve estar logado no sistema</p>
+<p>Entrada: n&atilde;o tem</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: As notifica&ccedil;&otilde;es s&atilde;o marcadas como lidas</p>
 </td>
 </tr>
 </tbody>
@@ -192,7 +192,7 @@
 <p>Prioridade: Essencial</p>
 <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;riodeveestarlogado no sistemacomoaluno</p>
 <p>Entrada: Recebecomoentrada um tema para a propostadeTCCouumaatividade para iniciaroucorrigir</p>
-<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: A propostadeTCC&eacute;mandada para um orientador para queelepossaanalisar, a atividade&eacute;enviada para o orientador para queelepossasugerircorre&ccedil;&otilde;esoufinalizala</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: A proposta de TCC &eacute; mandada para um orientador para que ele possa analisar, a atividade &eacute; enviada para o orientador para que ele possa sugerir corre&ccedil;&otilde;es ou finalizala</p>
 </td>
 </tr>
 </tbody>
@@ -205,11 +205,11 @@
 </tr>
 <tr>
 <td style="width: 97.8656%;">
-<p>Descri&ccedil;&atilde;o: Essecasodeusopermiteque o orientadoroualunopossamarcar, cancelar, reagendar e aceitarreuni&otilde;es para trataracerca do TCC</p>
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o orientador ou aluno possa marcar, cancelar, reagendar e aceitar reuni&otilde;es para tratar acerca do TCC</p>
 <p>Prioridade: Importante</p>
-<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;riodeveestarlogadocomoorientadoroualuno, e o alunodevepossuir um v&iacute;nculo com o orientador</p>
-<p>Entrada: Recebecomoentrada a data queocorrer&aacute; a reuni&atilde;o</p>
-<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute;sermandadoumanotifica&ccedil;&atilde;o para osparticipantesdareuni&atilde;ojunto com um convite para quepossamconfirmar a realiza&ccedil;&atilde;odareuni&atilde;o</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio deve estar logado como orientador ou aluno, e o aluno deve possuir um v&iacute;nculo com o orientador</p>
+<p>Entrada: Recebe como entrada a data que ocorrer&aacute; a reuni&atilde;o</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; ser mandado uma notifica&ccedil;&atilde;o para os participante sda reuni&atilde;o junto com um convite para que possam confirmar a realiza&ccedil;&atilde;o da reuni&atilde;o</p>
 </td>
 </tr>
 </tbody>
@@ -224,8 +224,8 @@
 <td style="width: 97.8656%;">
 <p>Descri&ccedil;&atilde;o: Esse caso de uso permite ao orientador corrigir as atividades dando sugest&otilde;es.</p>
 <p>Prioridade: Essencial</p>
-<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;riodever&aacute;estarlogadocomoorientador e tamb&eacute;mestarvinculadoaoaluno no qualir&aacute;corrigir as atividades</p>
-<p>Entrada: Recebecomoentradasugest&otilde;esdecorre&ccedil;&otilde;es</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como orientador e tamb&eacute;m estar vinculado ao aluno no qual ir&aacute; corrigir as atividades</p>
+<p>Entrada: Recebe como entrada sugest&otilde;es de corre&ccedil;&otilde;es</p>
 <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Caso a atividade n&atilde;o esteja certa ser&aacute; enviada ao aluno com as sugest&otilde;es sobre o que corrigir se estiver correto ser&aacute; enviado ao professor</p>
 </td>
 </tr>
@@ -239,11 +239,11 @@
 </tr>
 <tr>
 <td style="width: 97.8656%;">
-<p>Descri&ccedil;&atilde;o: Essecasodeusopermiteque o professor possamarcarapresenta&ccedil;&otilde;es, marcar a presen&ccedil;a do aluno e tamb&eacute;mmarcarcomoconclu&iacute;da</p>
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o professor possa marcar apresenta&ccedil;&otilde;es, marcar a presen&ccedil;a do aluno e tamb&eacute;m marcar como conclu&iacute;da</p>
 <p>Prioridade: Importante</p>
 <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor</p>
-<p>Entrada: Recebecomoentrada a data daapresenta&ccedil;&atilde;o</p>
-<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute;notificarosalunosquefoimarcadaoualteradauma nova apresenta&ccedil;&atilde;o</p>
+<p>Entrada: Recebe como entrada a data daapresenta&ccedil;&atilde;o</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar os alunos que foi marcada ou alterada uma nova apresenta&ccedil;&atilde;o</p>
 </td>
 </tr>
 </tbody>
@@ -256,11 +256,11 @@
 </tr>
 <tr>
 <td style="width: 97.8656%;">
-<p>Descri&ccedil;&atilde;o: Essecasodeusopermiteque o professor possacriar e editar um cronograma</p>
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o professor possa criar e editar um cronograma</p>
 <p>Prioridade: Essencial</p>
 <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor</p>
-<p>Entrada: Recebecomoentrada as datasdasatividades a serementregue no decorrer do ano</p>
-<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute;vincular o cronogramacriadoaosorientadores e aosalunos</p>
+<p>Entrada: Recebe como entrada as datas das atividades a serem entregue no decorrer do ano</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; vincular o cronograma criado aos orientadores e aos alunos</p>
 </td>
 </tr>
 </tbody>
@@ -307,17 +307,17 @@
 </tr>
 <tr>
 <td style="width: 97.8656%;">
-<p>Descri&ccedil;&atilde;o: Essecasodeusopermite o professor criar, editar e excluiratividades</p>
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite o professor criar, editar e excluiratividades</p>
 <p>Prioridade: Essencial</p>
 <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor</p>
-<p>Entrada: Recebecomoentrada o conte&uacute;dodaatividadeassimcomo a data deentrega</p>
-<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute;notificarosalunosacercadasatividades</p>
+<p>Entrada: Recebe como entrada o conte&uacute;do da atividade assim como a data deentrega</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar os alunos acerca das atividades</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p>&nbsp;</p>
-<h3>Atoresenvolvidos</h3>
+<h3>Atores envolvidos</h3>
 <p>Neste sistema, h&aacute; tr&ecirc;s atores que ir&atilde;o usar diretamente este sistema proposto:</p>
 <ul>
 <li>Professor: &eacute; o usu&aacute;rio respons&aacute;vel por todo o planejamento do TCC.</li>
@@ -325,8 +325,8 @@
 <li>Aluno: &eacute; o usu&aacute;rio comum que ir&aacute; desenvolver o TCC.</li>
 </ul>
 <p>&nbsp;</p>
-<h2>CasosdeusoEspec&iacute;ficos</h2>
-<h3>VisualizarNotifica&ccedil;&atilde;o</h3>
+<h2>Casos de uso Espec&iacute;ficos</h2>
+<h3>Visualizar Notifica&ccedil;&atilde;o</h3>
 <table style="border-collapse: collapse; width: 100.013%;" border="1">
 <tbody>
 <tr>
@@ -334,17 +334,17 @@
 </tr>
 <tr>
 <td style="width: 97.8656%;">
-<p>Descri&ccedil;&atilde;o: Esse caso deusopermitevisualizar as notifica&ccedil;&otilde;es</p>
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite visualizar as notifica&ccedil;&otilde;es</p>
 <p>Prioridade: Desej&aacute;vel</p>
-<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;riodever&aacute;estarlogado</p>
-<p>Entrada: n&atilde;otem</p>
-<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute;deixar as notifica&ccedil;&otilde;escomovisualizadas</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado</p>
+<p>Entrada: n&atilde;o tem</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; deixar as notifica&ccedil;&otilde;es como visualizadas</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p>&nbsp;</p>
-<h3>Gerenciamentode TCC</h3>
+<h3>Gerenciamento de TCC</h3>
 <p>&nbsp;</p>
 <table style="border-collapse: collapse; width: 100.013%;" border="1">
 <tbody>
@@ -603,217 +603,217 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <table style="border-collapse: collapse; width: 100.028%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.9062%; text-align: center;">RF3 &ndash; Marcar presen&ccedil;a de aluno</td>
-    </tr>
-    <tr>
-    <td style="width: 97.9062%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa marcar a presen&ccedil;a do aluno presente na apresenta&ccedil;&atilde;o.</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e dever&aacute; ter selecionado uma apresenta&ccedil;&atilde;o.</p>
-    <p>Entrada: Receber&aacute; como entrada uma apresenta&ccedil;&atilde;o e o aluno.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; registrar a presen&ccedil;a do aluno</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <h3>Gerenciamento de cronograma</h3>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF1 &ndash; Criar Cronograma</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa criar um novo cronograma onde ir&aacute; conter o planejamento do ano.</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
-    <p>Entrada: Receber&aacute; como entrada as datas das atividades a serem entregues.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; poder vincular aos alunos e professores a qual esse cronograma far&aacute; parte.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF2 &ndash; Vincular Aluno</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa vincular o cronograma criado aos alunos.</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e criado um cronograma.</p>
-    <p>Entrada: Receber&aacute; como entrada o cronograma e os alunos.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar e apresentar os alunos sobre o cronograma criado.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF3 &ndash; Vincular Orientador</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa vincular o cronograma criado aos orientadores.</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e criado um cronograma.</p>
-    <p>Entrada: Receber&aacute; como entrada o cronograma e os orientadores.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar e apresentar os orientadores sobre o cronograma criado.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF4 &ndash; Editar Cronograma</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa editar as datas postas no cronograma.</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e criado um cronograma.</p>
-    <p>Entrada: Receber&aacute; como entrada o cronograma e as datas.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; alterar o cronograma existente.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <h3>Gerenciamento de Alunos</h3>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF1 &ndash; Colocar aluno como orientador</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa alterar o login do aluno para de orientador.</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
-    <p>Entrada: Receber&aacute; como entrada o aluno.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar o ent&atilde;o novo orientador.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF2 &ndash; Excluir aluno</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa excluir o aluno do sistema</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
-    <p>Entrada: Receber&aacute; como entrada o aluno.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; retirar o aluno do sistema.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF3 &ndash; Vincular aluno a orientador</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa vincular um aluno ao orientador.</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
-    <p>Entrada: Receber&aacute; como entrada o aluno e um orientador.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; vincular um aluno a um orientador.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <h3>Gerenciamento de Orientadores</h3>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF1 &ndash; Colocar orientador como aluno</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa alterar o login do orientador para de aluno.</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
-    <p>Entrada: Receber&aacute; como entrada o orientador.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar o ent&atilde;o novo aluno.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF2 &ndash; Excluir aluno</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa excluir o orientador do sistema</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
-    <p>Entrada: Receber&aacute; como entrada o orientador.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; retirar o orientador do sistema.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <h3>Gerenciamento de Atividades</h3>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF1 &ndash; Criar Atividade</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa criar novas atividades.</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
-    <p>Entrada: Receber&aacute; como entrada o conte&uacute;do da atividade.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar o aluno sobre a atividade criada.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF2 &ndash; Editar Atividade</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa editar atividades.</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e ter uma atividade selecionada para editar.</p>
-    <p>Entrada: Receber&aacute; como entrada a atividade.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar o aluno sobre a atividade alterada.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <p>&nbsp;</p>
-    <table style="border-collapse: collapse; width: 100.013%;" border="1">
-    <tbody>
-    <tr>
-    <td style="width: 97.8656%; text-align: center;">RF3 &ndash; Criar Atividade</td>
-    </tr>
-    <tr>
-    <td style="width: 97.8656%;">
-    <p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa excluir atividades.</p>
-    <p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e ter uma atividade selecionada para excluir.</p>
-    <p>Entrada: Receber&aacute; como entrada a atividade.</p>
-    <p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; excluir a atividade do sistema.</p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
+<tbody>
+<tr>
+<td style="width: 97.9062%; text-align: center;">RF3 &ndash; Marcar presen&ccedil;a de aluno</td>
+</tr>
+<tr>
+<td style="width: 97.9062%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa marcar a presen&ccedil;a do aluno presente na apresenta&ccedil;&atilde;o.</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e dever&aacute; ter selecionado uma apresenta&ccedil;&atilde;o.</p>
+<p>Entrada: Receber&aacute; como entrada uma apresenta&ccedil;&atilde;o e o aluno.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; registrar a presen&ccedil;a do aluno</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h3>Gerenciamento de cronograma</h3>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF1 &ndash; Criar Cronograma</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa criar um novo cronograma onde ir&aacute; conter o planejamento do ano.</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
+<p>Entrada: Receber&aacute; como entrada as datas das atividades a serem entregues.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; poder vincular aos alunos e professores a qual esse cronograma far&aacute; parte.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF2 &ndash; Vincular Aluno</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa vincular o cronograma criado aos alunos.</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e criado um cronograma.</p>
+<p>Entrada: Receber&aacute; como entrada o cronograma e os alunos.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar e apresentar os alunos sobre o cronograma criado.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF3 &ndash; Vincular Orientador</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa vincular o cronograma criado aos orientadores.</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e criado um cronograma.</p>
+<p>Entrada: Receber&aacute; como entrada o cronograma e os orientadores.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar e apresentar os orientadores sobre o cronograma criado.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF4 &ndash; Editar Cronograma</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa editar as datas postas no cronograma.</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e criado um cronograma.</p>
+<p>Entrada: Receber&aacute; como entrada o cronograma e as datas.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; alterar o cronograma existente.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h3>Gerenciamento de Alunos</h3>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF1 &ndash; Colocar aluno como orientador</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa alterar o login do aluno para de orientador.</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
+<p>Entrada: Receber&aacute; como entrada o aluno.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar o ent&atilde;o novo orientador.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF2 &ndash; Excluir aluno</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa excluir o aluno do sistema</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
+<p>Entrada: Receber&aacute; como entrada o aluno.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; retirar o aluno do sistema.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF3 &ndash; Vincular aluno a orientador</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa vincular um aluno ao orientador.</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
+<p>Entrada: Receber&aacute; como entrada o aluno e um orientador.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; vincular um aluno a um orientador.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h3>Gerenciamento de Orientadores</h3>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF1 &ndash; Colocar orientador como aluno</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa alterar o login do orientador para de aluno.</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
+<p>Entrada: Receber&aacute; como entrada o orientador.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar o ent&atilde;o novo aluno.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF2 &ndash; Excluir aluno</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa excluir o orientador do sistema</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
+<p>Entrada: Receber&aacute; como entrada o orientador.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; retirar o orientador do sistema.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h3>Gerenciamento de Atividades</h3>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF1 &ndash; Criar Atividade</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa criar novas atividades.</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor.</p>
+<p>Entrada: Receber&aacute; como entrada o conte&uacute;do da atividade.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar o aluno sobre a atividade criada.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF2 &ndash; Editar Atividade</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa editar atividades.</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e ter uma atividade selecionada para editar.</p>
+<p>Entrada: Receber&aacute; como entrada a atividade.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; notificar o aluno sobre a atividade alterada.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100.013%;" border="1">
+<tbody>
+<tr>
+<td style="width: 97.8656%; text-align: center;">RF3 &ndash; Criar Atividade</td>
+</tr>
+<tr>
+<td style="width: 97.8656%;">
+<p>Descri&ccedil;&atilde;o: Esse caso de uso permite que o Professor possa excluir atividades.</p>
+<p>Pr&eacute;-condi&ccedil;&otilde;es: O usu&aacute;rio dever&aacute; estar logado como professor e ter uma atividade selecionada para excluir.</p>
+<p>Entrada: Receber&aacute; como entrada a atividade.</p>
+<p>Sa&iacute;da e p&oacute;s-condi&ccedil;&otilde;es: Ir&aacute; excluir a atividade do sistema.</p>
+</td>
+</tr>
+</tbody>
+</table>
