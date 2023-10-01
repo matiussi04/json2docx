@@ -4,7 +4,6 @@ from HTMLtoDocx import HTMLtoDocx
 import json
 from docxtpl import DocxTemplate
 import win32com.client
-import os
 
 
 def is_html(text):
@@ -24,14 +23,15 @@ def docx2pdf(path_docx, path_pdf):
         word.Quit()
 
 class JsonToDocx:
-    def __init__(self, path_docx, json_data, output_file_name):
-        self.path_docx = path_docx
+    def __init__(self, input_path_docx, json_data, output_path_docx, output_path_pdf):
+        self.input_path_docx = input_path_docx
         self.json_data = json_data
-        self.output_file_name = output_file_name
-        self.doc = DocxTemplate(path_docx)
+        self.output_path_docx = output_path_docx
+        self.output_path_pdf = output_path_pdf
+        self.doc = DocxTemplate(input_path_docx)
+        self.html2docx = HTMLtoDocx(self.doc)
 
     def convert(self):
-        html2docx = HTMLtoDocx(self.doc)
         context = {}
 
         for field in self.json_data.get("fields", []):
@@ -43,7 +43,7 @@ class JsonToDocx:
                     try:
                         json_string = convert(value)
                         items = json.loads(json_string)
-                        context[key] = html2docx.convert(items)
+                        context[key] = self.html2docx.convert(items)
                     except Exception as e:
                         print(f"Erro ao converter HTML para JSON: {str(e)}")
                 else:
@@ -51,7 +51,7 @@ class JsonToDocx:
 
         try:
             self.doc.render(context)
-            self.doc.save(self.output_file_name + ".docx")
-            docx2pdf(os.getcwd() + "/" + self.output_file_name + ".docx", os.getcwd() + "/" + self.output_file_name + ".pdf")
+            self.doc.save(self.output_path_docx)
+            docx2pdf(self.output_path_docx, self.output_path_pdf)
         except Exception as e:
             print(f"Erro ao criar o documento: {str(e)}")

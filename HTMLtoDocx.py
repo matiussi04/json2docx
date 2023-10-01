@@ -1,6 +1,5 @@
 from docx.shared import Inches
 
-
 def data_table(data):
     table_data = data['values'][0]['values']
 
@@ -53,11 +52,10 @@ class HTMLtoDocx:
                 if width == "":
                     run.add_picture(source)
                 else:
-                    width_in_pixels = float(width)
-                    height_in_pixels = float(height)
-                    run.add_picture(source, width=Inches(width_in_pixels * 0.0138889),
-                                    height=Inches(height_in_pixels * 0.0138889))
-                paragraph.style = 'Normal'
+                    width = Inches(float(width) * 0.0138889)
+                    height = Inches(float(height) * 0.0138889)
+                    run.add_picture(source, width=width, height=height)
+                paragraph.style = 'imagem'
             elif value["tag_name"] == "strong":
                 run.bold = True
                 new_options = {

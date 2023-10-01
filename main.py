@@ -1,5 +1,5 @@
 from JsonToDocx import JsonToDocx
-
+import os
 
 if __name__ == '__main__':
     data = {
@@ -860,5 +860,7 @@ if __name__ == '__main__':
             }
         ]
     }
-    json2docx = JsonToDocx("template.docx", data, "new_document")
+    output_docx = os.getcwd() + "/new_document.docx"
+    output_pdf = os.getcwd() + "/new_document.pdf"
+    json2docx = JsonToDocx("template.docx", data, output_docx, output_pdf)
     json2docx.convert()
