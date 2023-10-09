@@ -3,7 +3,9 @@ from html2json.script import convert
 from HTMLtoDocx import HTMLtoDocx
 import json
 from docxtpl import DocxTemplate
-import win32com.client
+import comtypes.client
+import docx
+import os
 
 
 def is_html(text):
@@ -11,16 +13,21 @@ def is_html(text):
     return bool(soup.find())
 
 
-def docx2pdf(path_docx, path_pdf):
-    word = win32com.client.Dispatch('Word.Application')
-    doc = word.Documents.Open(path_docx)
-    try:
-        doc.SaveAs(path_pdf, FileFormat=17)
-    except Exception as e:
-        print(f"Erro ao converter para PDF: {str(e)}")
-    finally:
-        doc.Close()
-        word.Quit()
+def docx2pdf(word_path, pdf_path):
+    doc = docx.Document(word_path)
+
+    word = comtypes.client.CreateObject("Word.Application")
+    docx_path = os.path.abspath(word_path)
+    pdf_path = os.path.abspath(pdf_path)
+
+    pdf_format = 17
+    word.Visible = False
+    in_file = word.Documents.Open(docx_path)
+    in_file.SaveAs(pdf_path, FileFormat=pdf_format)
+    in_file.Close()
+
+    word.Quit()
+
 
 class JsonToDocx:
     def __init__(self, input_path_docx, json_data, output_path_docx, output_path_pdf):

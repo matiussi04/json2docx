@@ -855,12 +855,11 @@ if __name__ == '__main__':
 <div style="font-size: 16px; text-transform: none; font-weight: normal; padding-left: 0px; text-align: left;">MAGALH&Atilde;ES, Gladys Ferraz. TCC pode abrir portas no mercado de trabalho.&nbsp;InfoMoney, [S.l.], 26 abr. 2010. Dispon&iacute;vel em:&nbsp;&lt;https://www.infomoney.com.br/carreira/tcc-pode-abrir-portas-no-mercado-de-trabalho&gt;.&nbsp;Acesso em: 13 mar. 2023.</div>
 <p></p>
 <div style="font-size: 16px; text-transform: none; font-weight: normal; padding-left: 0px; text-align: left;">MAGALH&Atilde;ES, Gladys Ferraz. TCC pode abrir portas no mercado de trabalho.&nbsp;InfoMoney, [S.l.], 26 abr. 2010. Dispon&iacute;vel em:&nbsp;&lt;https://www.infomoney.com.br/carreira/tcc-pode-abrir-portas-no-mercado-de-trabalho&gt;.&nbsp;Acesso em: 13 mar. 2023.</div>
-    <p><img src="TCC Control.png" width="300" height="200"></img></p>
 """
             }
         ]
     }
-    output_docx = os.getcwd() + "/new_document.docx"
-    output_pdf = os.getcwd() + "/new_document.pdf"
+    output_docx = "new_document.docx"
+    output_pdf = "new_document.pdf"
     json2docx = JsonToDocx("template.docx", data, output_docx, output_pdf)
     json2docx.convert()
